@@ -1,9 +1,11 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
 	"log/slog"
 	"net/http"
+	"time"
 )
 
 func (app *application) serverError(w http.ResponseWriter, r *http.Request, err error) {
@@ -26,12 +28,23 @@ func (app *application) render(w http.ResponseWriter, r *http.Request, status in
 	if !ok {
 		err := fmt.Errorf("The template %s does not exist", page)
 		app.serverError(w, r, err)
+		return
+	}
+
+	buf := new(bytes.Buffer)
+
+	err := ts.ExecuteTemplate(buf, "base", data)
+	if err != nil {
+		app.serverError(w, r, err)
+		return
 	}
 
 	w.WriteHeader(status)
+	buf.WriteTo(w)
+}
 
-	err := ts.ExecuteTemplate(w, "base", data)
-	if err != nil {
-		app.serverError(w, r, err)
+func (app *application) newTemplateData(r *http.Request) templateData {
+	return templateData{
+		CurrentYear: time.Now().Year(),
 	}
 }

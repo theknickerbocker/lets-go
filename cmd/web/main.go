@@ -20,7 +20,7 @@ type application struct {
 }
 
 func main() {
-	addr := flag.String("addr", ":7777", "HTTP network address")
+	addr := flag.String("addr", ":4000", "HTTP network address")
 	dsn := flag.String("dsn", "web:Milo1234@/snippetbox?parseTime=true", "MySQL data source name")
 	static_dir := flag.String("static", "ui/static/", "Path to static assets")
 	flag.Parse()
