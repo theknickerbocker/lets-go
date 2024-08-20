@@ -61,10 +61,10 @@ To explicitly prevent this behavior, add a `{$}` to the end of the route  patter
 `/snippet/views` will return a 404.
 
 **Worth reading the "Additional Information: The default servemux" section**
-Using http.Handle() and http.HandleFunc() registers routes with the default servemux, http.
-DefaultServeMux, which is automatically initialized by Go. This approach can make code shorter but
-is less explicit and can lead to security and maintainability issues due to its global nature. For
-clarity and safety, it's better to use a locally-scoped servemux.
+Using http.Handle() and http.HandleFunc() registers routes with the default http servemux,
+DefaultServeMux, which is initialized in the global scope. This approach can make code shorter but
+is less explicit and can lead to security and maintainability issues. For clarity and safety, it's
+better to use a locally-scoped servemux.
 
 ## 2.4. Wildcard route patterns
 Wildcard route patterns can be used to define flexible routing rules, commonly for path parameters.
