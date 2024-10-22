@@ -1,18 +1,21 @@
 package main
 
 import (
-	"github.com/theknickerbocker/snippetbox/internal/models"
 	"html/template"
 	"path/filepath"
 	"time"
+
+	"github.com/theknickerbocker/snippetbox/internal/models"
 )
 
 type templateData struct {
-	CurrentYear int
-	Snippet     models.Snippet
-	Snippets    []models.Snippet
-	Form        any
-	Flash       string
+	CurrentYear     int
+	Snippet         models.Snippet
+	Snippets        []models.Snippet
+	Form            any
+	Flash           string
+	IsAuthenticated bool
+	CSRFToken       string
 }
 
 func humanDate(t time.Time) string {
